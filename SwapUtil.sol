@@ -94,9 +94,9 @@ interface IUniswapV3PoolActions {
     );
 }
 contract SwapBase is Ownable{
-    address public immutable pair;
-    address public immutable path0;
-    address public immutable path1;
+    address public  pair;
+    address public  path0;
+    address public  path1;
     constructor (
         address _pair,
         address _path0,
@@ -105,6 +105,21 @@ contract SwapBase is Ownable{
         pair=_pair;
         path0=_path0;
         path1=_path1;
+    }
+    function init(
+        address _pair,
+        address _path0,
+        address _path1
+    ) external onlyOwner {
+        if(pair==address(0)){
+            pair=_pair;
+        }
+        if(path0==address(0)){
+            path0=_path0;
+        }
+        if(path1==address(0)){
+            path1=_path1;
+        }
     }
     mapping (address  => bool) internal _approvals;
     address[] public approvals;
@@ -484,3 +499,6 @@ contract Config is Ownable{
     }
  
 }
+//SwapV2Util  --  0xfc161A958185e5eb73435e9557cE5B5dCaC964B2
+//SwapV3Util  --  0x155212075E426B66b28149c9fb7bb3d06337AC6B
+//Config             --  0xe64490C1340040FCb5bb2dC907573C88eee8AF6E
